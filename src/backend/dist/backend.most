@@ -1,0 +1,62 @@
+// Version: 1.0.0
+type ChatId__922926295 = Nat;
+type Chat__204608551 =
+  {
+    createdAt : Timestamp__301639476;
+    id : ChatId__922926295;
+    messages : List__415060402<Message__581531077>;
+    var subject : Subject__800708213;
+    var title : Text;
+    var updatedAt : Timestamp__301639476;
+    userId : Principal
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type InputType__423095987 = {#image; #text; #voice};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type List__415060402<T> = List__790383201<T>;
+type List__790383201<T> =
+  {
+    var blockIndex : Nat__490723111;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__490723111
+  };
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type MessageId__291319400 = Nat;
+type MessageRole__49436217 = {#assistant; #user};
+type Message__581531077 =
+  {
+    chatId : ChatId__922926295;
+    content : Text;
+    id : MessageId__291319400;
+    inputType : InputType__423095987;
+    role : MessageRole__49436217;
+    timestamp : Timestamp__301639476
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type Subject__800708213 =
+  {#biology; #chemistry; #history; #language; #math; #other; #physics};
+type Timestamp__301639476 = Int;
+type UserRole__1073662873 = {#admin; #guest; #user};
+actor {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1073662873>
+    };
+  stable chats :
+    {
+      var root : Node__46230540<ChatId__922926295, Chat__204608551>;
+      var size : Nat__490723111
+    };
+  stable nextChatId : [var Nat];
+  stable nextMessageId : [var Nat]
+};

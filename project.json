@@ -1,0 +1,26 @@
+{
+  "overview": "AI Doubt Solver is a full-stack AI-powered tutoring app for students. Ask questions by typing, uploading a photo of a problem, or recording your voice — and get instant step-by-step explanations. Every conversation is saved and organized by subject so you can revisit past doubts anytime.",
+  "features": [
+    "Internet Identity login with persistent session",
+    "Text, image, and voice doubt input modes",
+    "AI-powered step-by-step explanations via Groq LLaMA",
+    "Image analysis for textbook diagrams and equations",
+    "Voice recording and transcription",
+    "Auto-detection of subject (Math, Physics, Chemistry, etc.)",
+    "Markdown rendering with headings, lists, and code blocks",
+    "Chat history grouped by subject with search and filter",
+    "Delete conversations or individual messages",
+    "Responsive layout with collapsible sidebar on mobile"
+  ],
+  "category": "productivity",
+  "tags": [
+    "education",
+    "ai",
+    "doubt-solver",
+    "students",
+    "tutoring",
+    "multimodal",
+    "chat"
+  ],
+  "last_updated": "2026-05-03T09:49:15.342Z"
+}

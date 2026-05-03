@@ -1,0 +1,98 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type Timestamp = int;
+type SubmitDoubtResult = 
+ record {
+   aiMessageId: MessageId;
+   aiResponse: text;
+   subject: Subject;
+   userMessageId: MessageId;
+ };
+type Subject = 
+ variant {
+   biology;
+   chemistry;
+   history;
+   language;
+   math;
+   other;
+   physics;
+ };
+type MessageRole = 
+ variant {
+   assistant;
+   user;
+ };
+type MessageInfo = 
+ record {
+   chatId: ChatId;
+   content: text;
+   id: MessageId;
+   inputType: InputType;
+   role: MessageRole;
+   timestamp: Timestamp;
+ };
+type MessageId = nat;
+type InputType = 
+ variant {
+   image;
+   "text";
+   voice;
+ };
+type ChatWithMessages = 
+ record {
+   chat: ChatInfo;
+   messages: vec MessageInfo;
+ };
+type ChatInfo = 
+ record {
+   createdAt: Timestamp;
+   id: ChatId;
+   subject: Subject;
+   title: text;
+   updatedAt: Timestamp;
+   userId: principal;
+ };
+type ChatId = nat;
+service : {
+  _initializeAccessControl: () -> ();
+  addMessage: (chatId: ChatId, role: MessageRole, content: text, inputType:
+   InputType) -> (opt MessageId);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  createChat: (firstQuestion: text) -> (ChatId, text);
+  deleteChat: (chatId: ChatId) -> (bool);
+  deleteMessage: (messageId: MessageId) -> (bool);
+  getCallerUserRole: () -> (UserRole) query;
+  getChat: (chatId: ChatId) -> (opt ChatWithMessages) query;
+  getUserChats: () -> (vec ChatInfo) query;
+  isCallerAdmin: () -> (bool) query;
+  submitDoubt: (chatId: ChatId, inputType: InputType, content: text,
+   imageKey: opt text) -> (SubmitDoubtResult);
+  transformGroq: (input: TransformationInput) -> (TransformationOutput) query;
+}
